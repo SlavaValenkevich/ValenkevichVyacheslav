@@ -110,7 +110,8 @@ def find_possible_values(grid, pos):
     >>> set(values) == {'2', '5', '9'}
     True
     """
-    pass
+    nums_list = get_col(grid, pos) + get_row(grid, pos) + get_block(grid, pos)
+    return [i for i in ['1', '2', '3', '4', '5', '6', '7', '8', '9'] if i not in nums_list]
 
 
 def solve(grid):
