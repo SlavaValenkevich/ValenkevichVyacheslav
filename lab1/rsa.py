@@ -42,8 +42,15 @@ def gcd(a, b):
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    mod = A % B
+    divs = [A // B]
+    while mod != 0:
+        A = B
+        B = mod
+        mod = A % B
+        divs.append(A // B)
+        return mod
+
 
 
 def multiplicative_inverse(e, phi):
