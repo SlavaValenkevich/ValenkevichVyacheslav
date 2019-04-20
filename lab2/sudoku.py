@@ -25,7 +25,13 @@ def group(values, n):
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    pass
+    game_field = []
+    count = len(values)//n
+    for i in range(0, len(values)):
+        if i % count == 0:
+            game_field.append([])
+        game_field[i//n].append(values[i])
+    return game_field
 
 
 def get_row(values, pos):
