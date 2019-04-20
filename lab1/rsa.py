@@ -61,8 +61,27 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    A = phi
+
+    # From up to down
+    mod = phi % e
+    divs = [phi // e]
+    while mod != 0:
+        phi = e
+        e = mod
+        mod = phi % e
+        divs.append(phi // e)
+        # From down to up
+        x = 0
+        y = 1
+        for i in range(len(divs) - 1, 0, -1):
+            x_prev = y
+            y_prev = x - y * divs[i-1]
+
+            x = x_prev
+            y = y_prev
+    return y % A
+
 
 
 def generate_keypair(p, q):
