@@ -44,7 +44,7 @@ def get_row(values, pos):
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    pass
+    return values[pos[0]]
 
 
 def get_col(values, pos):
@@ -57,7 +57,7 @@ def get_col(values, pos):
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    pass
+    return [line[pos[1]] for line in values]
 
 
 def get_block(values, pos):
