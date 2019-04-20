@@ -88,7 +88,15 @@ def find_empty_positions(grid):
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    x = 0
+    y = 0
+    for row in grid:
+        for col in row:
+            if col == '.':
+                return (x, y)
+            y += 1
+        y = 0
+        x += 1
 
 
 def find_possible_values(grid, pos):
