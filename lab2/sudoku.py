@@ -1,3 +1,6 @@
+import random
+
+
 def read_sudoku(filename):
     """ Прочитать Судоку из указанного файла """
     digits = [c for c in open(filename).read() if c in '123456789.']
@@ -160,7 +163,7 @@ def check_solution(solution):
 
 
 
-def generate_sudoku(N):
+def generate_sudoku(n):
     """ Генерация судоку заполненного на N элементов
 
     >>> grid = generate_sudoku(40)
@@ -182,8 +185,20 @@ def generate_sudoku(N):
     >>> check_solution(solution)
     True
     """
-    # PUT YOUR CODE HERE
-    pass
+    sudoku = read_sudoku("puzzle1.txt")  
+
+    solution = solve(sudoku)
+    if(n > 81):
+        n = 0
+    else:
+        n = 81 - n    
+    while n != 0:
+        a = random.randrange(9)
+        b = random.randrange(9) 
+        if solution[a][b] != '.':
+            solution[a][b] = '.'
+            n -= 1
+    return solution
 
 
 if __name__ == '__main__':
