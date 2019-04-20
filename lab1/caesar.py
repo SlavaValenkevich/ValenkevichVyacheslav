@@ -50,5 +50,28 @@ def decrypt_caesar(ciphertext):
     >>> decrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
+    plaintext=""
+    if shift <=26:
+        shift=shift
+    else:
+        z=shift//26
+        shift=shift-z*26
+        print('Смещение=',shift)
+    for i in ciphertext:
+        if (ord(i)>=65) and (ord(i)<=90): 
+            if ((ord(i)-shift)>=65) and ((ord(i)-shift)<=90): #то де самое, что и в верхней функции, только смещаем обратно 
+                plaintext=plaintext+chr(ord(i)-shift)
+            else:
+                d=int(math.fabs(65-ord(i))) #сделали "круг" по алфавиту
+                s=91-int(math.fabs((shift-d))) #вычислили новое смещение и вычли
+                plaintext=plaintext+chr(s)
+        if (ord(i)>=97) and (ord(i)<=122):
+            if ((ord(i)-shift)>=97) and ((ord(i)-shift)<=122):
+                plaintext=plaintext+chr(ord(i)-shift)
+            else:
+                d=int(math.fabs(ord(i)-97))
+                s=123-int(math.fabs((shift-d)))
+                plaintext=plaintext+chr(s)
+        if (ord(i)>=44) and (ord(i)<=57):
+            plaintext+=i   
     return plaintext
