@@ -138,9 +138,26 @@ def solve(grid):
         return grid
 
 
+def check_repeats(nums):
+    """ Выводит True, если в списке есть повторения """
+
+    for i in nums:
+        if list(nums).count(i) > 1 and i != '.':
+            return True
+    return False
+
 def check_solution(solution):
     """ Если решение solution верно, то вернуть True, в противном случае False """
-    pass
+
+    for i in range(0, 9):
+        if check_repeats(get_row(solution, (i, 0))) or check_repeats(get_col(solution, (0, i))):
+            return False
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if check_repeats(get_block(solution, (i * 3, j * 3))):
+                return False
+    return True
+
 
 
 def generate_sudoku(N):
