@@ -71,8 +71,12 @@ def get_block(values, pos):
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
-
+    block = []
+    start_pos = (pos[0] // 3, pos[1] // 3)
+    for i in range(0, 3):
+        for j in range(0, 3):
+            block.append(values[start_pos[0] * 3 + i][start_pos[1] * 3 + j])
+    return block
 
 def find_empty_positions(grid):
     """ Найти первую свободную позицию в пазле
