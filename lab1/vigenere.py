@@ -59,5 +59,39 @@ def decrypt_vigenere(ciphertext, keyword):
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
-    # PUT YOUR CODE HERE
+    plaintext = ""
+    if len(keyword) < len(ciphertext):
+        z = len(ciphertext) // len(keyword)
+        # целое число раз
+        keyword *= z
+        if len(ciphertext) % len(keyword) != 0:
+            d = len(ciphertext) % len(keyword)
+            for h in range(d):
+                keyword += keyword[h]
+    while len(plaintext) < len(ciphertext):
+        for i in range(len(ciphertext)):
+            # дальше вычисление смещения для каждого символа относительно символа в ключе
+            if (ord(keyword[i]) >= 65) and (ord(keyword[i]) <= 90):
+                shift = int(math.fabs(65 - ord(keyword[i])))
+                # если символ ключа A - Z, то смещение такое
+            elif(ord(keyword[i]) >= 97) and (ord(keyword[i]) <= 122):
+                shift = int(math.fabs(97 - ord(keyword[i])))
+                # если символ a - z, то смещение такое
+            if (ord(ciphertext[i]) >= 65) and (ord(ciphertext[i]) <= 90):
+                # дальше логика точно как в дешифровке цезаре
+                if ((ord(ciphertext[i]) - shift) >= 65) and ((ord(ciphertext[i]) - shift) <= 90):
+                    plaintext = plaintext + chr(ord(ciphertext[i]) - shift)
+                else:
+                    d = int(math.fabs(65 - ord(ciphertext[i])))
+                    s = 91 - int(math.fabs((shift - d)))
+                    plaintext = plaintext + chr(s)
+                shift = 0
+            if (ord(ciphertext[i]) >= 97) and (ord(ciphertext[i]) <= 122):
+                if ((ord(ciphertext[i]) - shift) >= 97) and ((ord(ciphertext[i]) - shift) <= 122):
+                    plaintext = plaintext + chr(ord(ciphertext[i]) - shift)
+                else:
+                    d = int(math.fabs(ord(ciphertext[i]) - 97))
+                    s = 123 - int(math.fabs((shift - d)))
+                    plaintext = plaintext + chr(s)
+                    shift = 0
     return plaintext
