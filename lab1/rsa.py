@@ -1,7 +1,7 @@
 import random
+import math
 
-
-def is_prime(n):
+def is_prime(a):
     """
     Tests to see if a number is prime.
 
@@ -33,7 +33,7 @@ def is_prime(n):
     pass
 
 
-def gcd(a, b):
+def gcd(A, B):
     """
     Euclid's algorithm for determining the greatest common divisor.
 
