@@ -12,7 +12,24 @@ def is_prime(n):
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
+    # функция на проверку простого числа
+    if a == 0:
+        return False
+    elif a > 0 and a <= 3:
+        return True
+    elif a > 3:
+        # проверка на простоту
+        for i in range(2, int(math.sqrt(a))+1):
+            # перебор чисел для проверки
+            if (a % i == 0):
+                # проверка каждого из них, если а делится нацело не только на себя и 1, то число не простое
+                return False
+            else:
+                return True
+    elif a == 1:
+        return ("You input 1")
+    else:
+        return ('The number is negative')
     pass
 
 
