@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Tasks</h1></br>
+    <ul>
+        {% load static %}
+        {% for task in tasks %}
+            <table><tr>
+            <th valign="top"><div style="margin-right: 40px">{% if task.priority == "h" %}
+            <img src= "{% static 'images\2.png' %}" height="32" width="32"/>
+            {% endif %}
+            {% if task.priority == "m" %}
+            <img src= "{% static 'images\4.png' %}" height="32" width="32"/>
+            {% endif %}
+            {% if task.priority == "l" %}
+            <img src= "{% static 'images\3.png' %}" height="32" width="32"/>
+            {% endif %}
+            {% if task.priority == "n" %}
+            <img src="{% static 'images\5.png' %}" height="32" width="32"/>
+            {% endif %}</div></th>
+            <th><div style="font-size: 20pt"><a href='/todolists/{{ task.tasklist_id }}/tasks/{{task.id}}'>{{ task.name }}</a></div>
+            {% if Button_Create %}<a style="color: red" href="/todolists/{{ task.tasklist_id }}/delete/{{task.id}}">Delete</a>{% endif %}
+             
+            <p>Description: {{ task.description }}</p>
+            <p>date_created : {{ task.date_created }}</p>
+            {% if task.tags_string %}
+            <p>tags_string : {{ task.tags_string }}</p>
+            {% endif %}
+            {% if task.completed %}
+            <p><img src="{% static 'images\1.png' %}" height="32" width="32"/></p>
+            {% endif %}
+            </th></tr></table>
+        {% endfor %}
+    </ul>
+    {% if Button_Create %}<div style="margin-bottom: 5%; margin-left: 5%"><a href="/todolists/{{list_id}}/create_task" class="btn btn-secondary"> Create new task!</a></div>{% endif %}
+
+{% endblock %}
