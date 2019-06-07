@@ -11,7 +11,6 @@ from pprint import pprint as pp
 from django.shortcuts import render
 
 
-
 def LogIn(request):
 
     if request.method == 'POST':
@@ -23,10 +22,10 @@ def LogIn(request):
             login_data = dict(username=input_username, password=input_password)
             print(login_data)
             response = requests.request("POST", url, data = login_data)
-            print(str(response.json().get('token')))
+            if(response.json().get('token')==None):
+                return HttpResponseRedirect('/login/')
+
             request.session['token'] = "Token " +  str(response.json().get('token'))
-
-
             return HttpResponseRedirect('/todolists/')
     else:
         form = LoginForm()
@@ -57,7 +56,6 @@ def Tasks(request,pk):
         print(request.session['token'],pk)
         req = requests.request("GET", 'http://127.0.0.1:8000/todolists/{pk}/tasks/'.format(pk=pk), headers={ 
             'Authorization': request.session['token']})
-        #print(req)
         tasks = [task for task in json.loads(req.text)]
         template = get_template('tasks.tmpl')
         try:
@@ -218,9 +216,8 @@ def Registration(request):
         form = SignUpForm(request.POST)
         print(form.data)
         if form.is_valid():
-
             c.post(url, data=form.cleaned_data)
-            return HttpResponseRedirect('/todolists/')
+            return HttpResponseRedirect('/login/')
 
     else:
         form = SignUpForm()
