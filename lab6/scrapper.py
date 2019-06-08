@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -33,8 +35,8 @@ def extract_news(parser):
         #print(a_in_td_tags_second[0].text) #автор
 
         commentCount = 0
-        if a_in_td_tags_second[len(a_in_td_tags_second) - 1].text != "discuss" and str(a_in_td_tags_second[len(a_in_td_tags_second) - 1].text).find('comment') >= 0:
-            commentCount = int("".join((x for x in a_in_td_tags_second[len(a_in_td_tags_second) - 1].text if x.isdigit())))
+        if ''.join(a_in_td_tags_second[len(a_in_td_tags_second) - 1].text).encode('utf-8') != "discuss" and str(a_in_td_tags_second[len(a_in_td_tags_second) - 1].text).find("comment") >= 0:
+            commentCount = int(''.join((x for x in a_in_td_tags_second[len(a_in_td_tags_second) - 1].text if x.isdigit())))
         #print(commentCount) #комменты
 
         url = ''

@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
+# - * -coding: utf - 8 - * -
 
 import random
 import math
 
-def is_prime(a):
-    """
-    Tests to see if a number is prime.
 
+def is_prime(a):
+
+    """
     >>> is_prime(2)
     True
     >>> is_prime(11)
@@ -14,9 +14,10 @@ def is_prime(a):
     >>> is_prime(8)
     False
     """
+
     # функция на проверку простого числа
     if a == 0:
-        return False
+    	return False
     elif a > 0 and a <= 3:
         return True
     elif a > 3:
@@ -32,18 +33,16 @@ def is_prime(a):
         return ("You input 1")
     else:
         return ('The number is negative')
-    pass
 
 
 def gcd(A, B):
     """
-    Euclid's algorithm for determining the greatest common divisor.
-
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
+
     mod = A % B
     divs = [A // B]
     while mod != 0:
@@ -54,15 +53,13 @@ def gcd(A, B):
         return mod
 
 
-
 def multiplicative_inverse(e, phi):
-    """
-    Euclid's extended algorithm for finding the multiplicative
-    inverse of two numbers.
 
+    """
     >>> multiplicative_inverse(7, 40)
     23
     """
+
     A = phi
 
     # From up to down
@@ -85,9 +82,8 @@ def multiplicative_inverse(e, phi):
     return y % A
 
 
-
 def generate_keypair(p, q):
-    if not (is_prime(p) and is_prime(q)):
+    if not(is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
     elif p == q:
         raise ValueError('p and q cannot be equal')
@@ -95,39 +91,39 @@ def generate_keypair(p, q):
     n = p * q
     phi = (p - 1) * (q - 1)
 
-    # Choose an integer e such that e and phi(n) are coprime
+    # Выбрать целое число е так, чтобы e и phi(n) были взаимнопростыми
     e = random.randrange(1, phi)
+    is_prime(e)
 
-    # Use Euclid's Algorithm to verify that e and phi(n) are comprime
+    # Использовать алгоритм евклида для проверки взаимной простоты чисел e и phi(n)
     g = gcd(e, phi)
     while g != 1:
         e = random.randrange(1, phi)
         g = gcd(e, phi)
 
-    # Use Extended Euclid's Algorithm to generate the private key
-    d = multiplicative_inverse(e, phi)
+    # Использовать расширенный алгорит Евклида для генерации приватного ключа 
+    d = multiplicative_inverse(phi, e)
 
-    # Return public and private keypair
-    # Public key is (e, n) and private key is (d, n)
+    # Возвращется публичная иприватная пара ключей 
+    # Публичный ключ (e, n) и приватный ключ (d, n)
     return ((e, n), (d, n))
 
 
 def encrypt(pk, plaintext):
-    # Unpack the key into it's components
+    # Распаковать ключи по компонентам 
     key, n = pk
-    # Convert each letter in the plaintext to numbers based on
-    # the character using a^b mod m
+    # Конвертировать каждый символ исходного сообщения в число на основе символа используя a ^ b mod m
     cipher = [(ord(char) ** key) % n for char in plaintext]
-    # Return the array of bytes
+    # Вернуть массив байт
     return cipher
 
 
 def decrypt(pk, ciphertext):
-    # Unpack the key into its components
+    # Распаковать ключи по компонентам
     key, n = pk
-    # Generate the plaintext based on the ciphertext and key using a^b mod m
+    # Сгенерировать исходное сообщение основываясь на зашифрованном сообщения и ключе используя a ^ b mod m
     plain = [chr((char ** key) % n) for char in ciphertext]
-    # Return the array of bytes as a string
+    # Вернуть массив байт в строке
     return ''.join(plain)
 
 

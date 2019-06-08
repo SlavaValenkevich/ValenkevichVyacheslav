@@ -8,7 +8,7 @@ import numpy as np
 
 
 domain = "https://api.vk.com/method"
-access_token = 'f5de6aceb0fec3736d5a6b3288cc869c2937cd11bdbcd0f81e4f21ee08e1b3a0a914a98a58c179f01fd4b'  
+access_token = '775874c7d08e923ad575dfd65c85b92a5184029f29ed08650dcc95977064db2b22821f97287122555512a'  
 user_id = int(input('Введите id пользователя: '))
 
 query_params = {
@@ -25,7 +25,6 @@ def get(url, params={}, timeout=5, max_retries=5, backoff_factor=0.3):
 	delay = 0    
 	query = url.format(**params)
 	response = requests.get(query)
-	print(response.status_code)
 	for i in range(0, max_retries):
 		if(response.status_code != 200):
 			response = requests.get(query)
@@ -41,7 +40,6 @@ def get_mutual_friends(params):
 	url = "{domain}/friends.getMutual?access_token={access_token}&source_uid={source_uid}&target_uid={target_uid}&v=5.53"
 	# query = url.format(**params)
 	response = get(url, params)
-	print(response.json())
 	return get(url, params).json()['response']
 	
 
@@ -89,7 +87,6 @@ def get_users_ids_list():
 
 	print(ids)
 	for i in ids:
-		print(i)
 		my_query_params = {
 		    'domain' : domain,
 		    'access_token': access_token,
@@ -141,4 +138,4 @@ print(age_predict(user_id))
 
 vertices, edges = get_users_ids_list()
 
-get_network(edges, vertices)
+# get_network(edges, vertices)

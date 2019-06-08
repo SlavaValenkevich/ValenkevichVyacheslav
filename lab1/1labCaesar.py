@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 import math
 
-def encrypt_caesar(plaintext, shift):
+def encrypt_caesar(plaintext,shift):
     """
     >>> encrypt_caesar("PYTHON",3)
     'SBWKRQ'
@@ -38,7 +37,7 @@ def encrypt_caesar(plaintext, shift):
     return ciphertext
 
 
-def decrypt_caesar(ciphertext, shift):
+def decrypt_caesar(ciphertext,shift):
     """
     >>> decrypt_caesar("SBWKRQ",3)
     'PYTHON'
@@ -74,3 +73,4 @@ def decrypt_caesar(ciphertext, shift):
         if (ord(i)>=44) and (ord(i)<=57):
             plaintext+=i   
     return plaintext
+

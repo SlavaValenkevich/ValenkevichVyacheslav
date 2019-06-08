@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pygame
 from pygame.locals import *
 import random
@@ -167,5 +169,5 @@ class GameOfLife:
         pygame.quit()
 
 if __name__ == '__main__':
-    game = GameOfLife(320, 240, 20, 10, 'game.txt')
+    game = GameOfLife(320, 240, 20, 10, 'grid.txt')
     game.run()

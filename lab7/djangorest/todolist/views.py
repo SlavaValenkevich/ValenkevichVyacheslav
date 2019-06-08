@@ -22,9 +22,6 @@ class TasklistCreateView(generics.ListCreateAPIView):
    
     queryset = Tasklist.objects.all()
     serializer_class = TasklistSerializer
-    '''permission_classes = (
-        permissions.IsAuthenticated,
-        IsOwner)'''
     
     def get_queryset(self):
         print(self.request.user)
@@ -62,9 +59,6 @@ class TasklistDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 class TaskCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
-    '''permission_classes = (
-        permissions.IsAuthenticated,
-        IsOwner)'''
     def get_queryset(self):
         
         queryset = Task.objects.all()
@@ -94,10 +88,6 @@ class TaskCreateView(generics.ListCreateAPIView):
 class TaskDetailsView(generics.RetrieveUpdateDestroyAPIView):
     
     serializer_class = TaskSerializer
-    '''permission_classes = (
-        permissions.IsAuthenticated,
-        IsOwner)'''
-
     def get_queryset(self):
         try:
             queryset = Task.objects.all()
@@ -144,7 +134,7 @@ class SharedTasks(generics.ListAPIView):
         queryset = Task.objects.filter(tasklist_id=list_id)
         
         return queryset
-###
+        
 class EditList(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=TasklistSerializer
     def get_queryset(self):
@@ -177,8 +167,9 @@ class SignUp(generics.CreateAPIView):
         user.set_password(self.request.POST['password'])
         user.is_active = False
         user.save()
-        username = request.data.get('username')
+        username = request.data.get('username') 
         email = [request.data.get('email')]
+        print(email)
         message = 'THANK YOU FOR REGISTRATION!\nPlease activate your account http://127.0.0.1:8000/activation/{user}/'.format(user=username)
         send_mail('Activation', message, 'mypythonlab@gmail.com',email, fail_silently=False)
         return HttpResponse('Ok')
@@ -190,28 +181,3 @@ def activation(request,username):
     Token.objects.get_or_create(user=user)
     user.save()
     return HttpResponse('activated')
-
-
-from django.contrib.auth.forms import AuthenticationForm
-
-
-from django.http import HttpResponseRedirect
-
-
-
-
-from django.db import IntegrityError
-'''
-class ShareView(generics.ListCreateAPIView):
-    serializer_class = ShareSerializer
-        #permission_classes = (
-        #permissions.IsAuthenticated,
-        #IsOwner)
-
-
-    def get_queryset(self):
-        owner = self.request.user.pk
-        queryset = Share.objects.filter(owner_id = owner)
-        return queryset
-    
-'''

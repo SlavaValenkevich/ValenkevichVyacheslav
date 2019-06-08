@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
 import math
 
 
 def encrypt_vigenere(plaintext, keyword):
     """
-    Encrypts plaintext using a Vigenere cipher.
-
     >>> encrypt_vigenere("PYTHON", "A")
     'PYTHON'
     >>> encrypt_vigenere("python", "a")
@@ -54,8 +51,6 @@ def encrypt_vigenere(plaintext, keyword):
 
 def decrypt_vigenere(ciphertext, keyword):
     """
-    Decrypts a ciphertext using a Vigenere cipher.
-
     >>> decrypt_vigenere("PYTHON", "A")
     'PYTHON'
     >>> decrypt_vigenere("python", "a")
